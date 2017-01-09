@@ -1,0 +1,246 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="Site.master.cs" Inherits="Site" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head runat="server">
+    <title></title>
+    <link href="~/Styles/style.css" rel="stylesheet" type="text/css" media="screen" />
+    <link rel="stylesheet" href="https://opensource.keycdn.com/fontawesome/4.7.0/font-awesome.min.css" integrity="sha384-dNpIIXE8U05kAbPhy3G1cz+yZmTzA6CY8Vg/u2L9xRnHjJiAK76m2BIEaSEV+/aU" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <asp:ContentPlaceHolder id="HeaderContent" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+   <nav class="navbar navbar-default" data-spy="affix">
+  <div class="container-fluid-mobile">
+    <div class="navbar-header2">
+      <a id="logo-nav" href="Default.aspx" title="Site name" class="logo" style="    margin-left: 20px;">
+    LOGO
+  </a>
+        <div id="search-box" class="form-group" style="margin-left: -47px;
+    margin-right: 92px; display: none;">
+              <form method="get" action="search.aspx"> 
+                   <div class="input-group stylish-input-group">
+                    <input type="text" class="form-control" name="text"  placeholder="Search...">
+                    <span class="input-group-addon">
+                        <button type="submit">
+                            <span class="glyphicon glyphicon-search"></span>
+                        </button>  
+                        <i id="hide-search-box" class="fa fa-times" aria-hidden="true"></i>   
+                    </span>
+            </div>
+                  </form>
+        </div>
+      
+
+    <ul id="list-nav" class="nav navbar-nav navbar-right" style="float: right;     margin: -5.5px 20px;">
+        <li style="float: left;">
+      <span id="btn-search" class="span-search glyphicon glyphicon-search" style="    font-weight: 700;    font-size: 20px;">
+      </span>
+        </li>
+        <li style="float: left;">
+      <span class="span-upload">
+          <a href="upload.aspx" style="color: white;">
+                <i class="fa fa-cloud-upload fa-2x" aria-hidden="true"></i>
+          </a>
+      </span>
+        </li>
+<% 
+    if (!this.Page.User.Identity.IsAuthenticated)
+    {
+%>
+        <li style="float: left;">
+          <span class="nav-buttons">
+               <a href="login.aspx">
+                   <button type="button" class="btn btn-danger">Log In</button>
+               </a>
+      </span>
+        </li>
+        <li style="float: left;">
+      <span class="nav-buttons">
+          <a href="signup.aspx">
+                <button type="button" class="btn btn-primary">Sign Up</button>
+          </a>
+      </span>
+        </li>
+<%
+    } else
+    {
+        %>
+                 <li style="float: left;">
+                <div class="dropdown">
+                    <span class="span-account"  data-toggle="dropdown">
+          <a href="my.aspx" style="color: white;">
+            <i class="fa fa-user-circle fa-2x" aria-hidden="true"></i>
+           </a>
+      </span>
+    <ul id="js-dropdown2" class="dropdown-menu" style="    width: 250px;
+    position: fixed;
+    top: 52px;">
+       <li class="dropdown-header" style="    font-size: 14px;">Welcome back, <asp:LoginName ID="LoginName2" runat="server" Font-Bold="true" />!</li>
+        <li class="divider"></li>
+                <% if (admin)
+            {  %>
+        <li><a href="moderator.aspx">Add moderator</a></li>
+        <%} %>
+         <li><a href="newalbum.aspx">New album</a></li>
+      <li><a href="changepassword.aspx">Change password</a></li>
+      <li><a href="logout.aspx">Sign Out</a></li>
+    </ul>
+  </div>
+              </li>
+        <%
+    }
+%>
+      </ul>
+          </div>
+  </div>
+
+
+  <script>
+    $(document).ready(function(){
+        $("#btn-search").click(function(){
+            $('#logo-nav').hide();
+            $('#list-nav').hide();
+            $('#search-box').show();
+        });
+
+        $("#hide-search-box").click(function(){
+        $('#search-box').hide();
+            $('#logo-nav').show();
+            $('#list-nav').show();
+        });
+
+    });
+  </script>
+
+
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <a href="Default.aspx" title="Site name" class="logo">
+    LOGO
+  </a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+     
+      <form class="navbar-form navbar-left" style="margin-left: 50px;" method="get" action="search.aspx">
+        <div class="form-group">
+                   <div class="input-group stylish-input-group">
+                    <input type="text" class="form-control" name="text" placeholder="Search...">
+                    <span class="input-group-addon">
+                        <button type="submit">
+                            <span class="glyphicon glyphicon-search"></span>
+                        </button>  
+                    </span>
+            </div>
+        </div>
+      </form>
+      <ul class="nav navbar-nav navbar-right" style="float: left !important;">
+        <li>
+      <span class="span-upload">
+          <a href="upload.aspx" style="color: white;">
+            <i class="fa fa-cloud-upload fa-2x" aria-hidden="true"></i>
+           </a>
+      </span>
+        </li>
+          <% 
+    if (!this.Page.User.Identity.IsAuthenticated)
+    {
+%>
+        <li>
+          <span class="nav-buttons">
+              <a href="login.aspx">
+                <button type="button" class="btn btn-danger">Log In</button>
+               </a>
+      </span>
+        </li>
+        <li>
+      <span class="nav-buttons">
+          <a href="signup.aspx">
+             <button type="button" class="btn btn-primary">Sign Up</button>
+          </a>
+      </span>
+        </li>
+<%
+    }
+    else
+    {
+        %>
+          <li style="float: left;">
+                <div class="dropdown">
+                    <span class="span-account"  data-toggle="dropdown">
+          <a href="my.aspx" style="color: white;">
+            <i class="fa fa-user-circle fa-2x" aria-hidden="true"></i>
+           </a>
+      </span>
+    <ul id="js-dropdown" class="dropdown-menu" style="    width: 250px;
+    position: fixed;
+    top: 52px;">
+        <li class="dropdown-header" style="    font-size: 14px;">Welcome back, <asp:LoginName ID="LoginName1" runat="server" Font-Bold="true" />!</li>
+        <li class="divider"></li>
+        <% if (admin)
+            {  %>
+        <li><a href="moderator.aspx">Add moderator</a></li>
+        <%} %>
+        <li><a href="newalbum.aspx">New album</a></li>
+      <li><a href="changepassword.aspx">Change password</a></li>
+      <li><a href="logout.aspx">Sign Out</a></li>
+    </ul>
+  </div>
+              </li>
+        <%
+    }
+%>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+    <asp:ContentPlaceHolder id="BodyContent" runat="server" />
+    <footer>
+<div class="footer-links">
+  <ul>
+    <li><a href="Default.aspx">Home</a></li>
+    <li><a href="browse.aspx">Browse</a></li>
+    <li><a href="privacy.aspx">Privacy</a></li>
+    <li><a href="terms.aspx">Terms</a></li>
+    <li><a href="about.aspx">About</a></li>
+    <li><a href="contact.aspx">Contact</a></li>
+  </ul>
+</div>
+<div class="footer-social-media">
+<span style="float: left">
+&copy; 2016 by Andreas Antone
+</span>
+<ul class="social-media-list">
+  <li>
+    <a href="https://www.facebook.com/" target="_blank"><i class="fa fa-facebook-square fa-2x" aria-hidden="true"></i></a>
+  </li>
+  <li>
+    <a href="https://www.tumblr.com/" target="_blank"><i class="fa fa-tumblr fa-2x" aria-hidden="true"></i></a>
+  </li>
+  <li>
+    <a href="https://twitter.com/" target="_blank"><i class="fa fa-twitter fa-2x" aria-hidden="true"></i></a>
+  </li>
+</ul>
+</div>
+</footer>
+        <asp:ContentPlaceHolder id="NavigationContent" runat="server" />
+
+
+              <script>
+              var screen = {
+                  width: window.innerWidth || document.body.clientWidth,
+                  height: window.innerHeight || document.body.clientHeight
+              }
+              document.getElementById("js-dropdown").style.left = screen.width-590+"px";
+              document.getElementById("js-dropdown2").style.left = "150px";
+              document.getElementById("js-dropdown2").style.background = "black";
+          </script>
+</body>
+</html>

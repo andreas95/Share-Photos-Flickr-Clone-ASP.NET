@@ -1,0 +1,17 @@
+Administrator
+
+user: admin
+pass: admin
+____________________
+
+Moderator
+
+user: mod
+pass: mod
+
+_____________________
+
+Normal user
+
+user: user
+pass: user
