@@ -1,5 +1,5 @@
 # Share photos - Flickr Clone
-Beautiful project for management projects made in Java.
+Beautiful project for photo sharing made in ASP.NET and C#.
 
 
 
